@@ -1,0 +1,22 @@
+{
+  "name": "Teroment Solutions",
+  "short_name": "Teroment",
+  "description": "Innovative digital solutions and IT services for businesses",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#0070FD",
+  "icons": [
+    {
+      "src": "/terocent-logo-new.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/terocent-logo-new.svg",
+      "sizes": "1024x1024",
+      "type": "image/svg+xml"
+    }
+  ]
+}

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Button Test</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        .btn { 
+            padding: 14px 28px; 
+            border-radius: 12px; 
+            border: 0; 
+            cursor: pointer; 
+            font-weight: 600; 
+            font-size: 15px; 
+            background: #7c3aed; 
+            color: white; 
+            margin: 10px;
+        }
+        .btn.ghost { 
+            background: transparent; 
+            color: #7c3aed; 
+            border: 2px solid #7c3aed; 
+            text-decoration: none;
+            display: inline-block;
+        }
+        section { 
+            min-height: 100vh; 
+            padding: 100px 20px; 
+            border: 2px solid #ccc; 
+            margin: 20px 0; 
+        }
+        #contact { background: #f0f0f0; }
+    </style>
+</head>
+<body>
+    <h1>Button Functionality Test</h1>
+    
+    <div style="position: fixed; top: 0; left: 0; right: 0; background: white; padding: 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); z-index: 1000;">
+        <h2>Test Buttons:</h2>
+        <button class="btn" onclick="document.querySelector('#contact')?.scrollIntoView({behavior:'smooth'})">
+            Get a Quote
+        </button>
+        
+        <button class="btn" onclick="document.querySelector('#contact')?.scrollIntoView({behavior:'smooth'})">
+            Request call
+        </button>
+        
+        <a class="btn ghost" href="mailto:info@terocent.com">Email us</a>
+    </div>
+
+    <section id="home" style="margin-top: 150px;">
+        <h2>Home Section</h2>
+        <p>This is the home section. Scroll down to see the contact section.</p>
+    </section>
+
+    <section id="services">
+        <h2>Services Section</h2>
+        <p>This is the services section.</p>
+    </section>
+
+    <section id="contact">
+        <h2>Contact Section</h2>
+        <p>This is the contact section. The buttons above should scroll here smoothly.</p>
+        <p><strong>If you clicked "Email us", your email client should have opened with info@terocent.com</strong></p>
+    </section>
+
+    <script>
+        console.log('Testing button functionality...');
+        console.log('Contact section exists:', !!document.querySelector('#contact'));
+        console.log('Buttons with onClick:', document.querySelectorAll('button[onclick]').length);
+        console.log('Email link:', document.querySelector('a[href^="mailto:"]')?.href);
+    </script>
+</body>
+</html>
