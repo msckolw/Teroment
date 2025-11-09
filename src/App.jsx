@@ -2,6 +2,8 @@ import React, { useState, useEffect, useRef } from 'react';
 import { FaCode, FaMobileAlt, FaServer, FaChartLine, FaBrain, FaCloud, FaCog, FaSearch, FaJava, FaArrowRight, FaRocket, FaPlay, FaUsers, FaAward, FaGlobe, FaLightbulb, FaShieldAlt, FaChevronDown, FaBars, FaTimes } from 'react-icons/fa';
 import { SiReact, SiNextdotjs, SiNodedotjs, SiTypescript, SiFlutter, SiSwift, SiKotlin, SiPython, SiTensorflow, SiPytorch, SiOpenai, SiGooglecloud, SiDocker, SiAngular, SiVuedotjs, SiEthereum, SiDatabricks } from 'react-icons/si';
 import { FaAws, FaMicrosoft } from 'react-icons/fa';
+import emailjs from '@emailjs/browser';
+
 
 // Modern button component
 const Button = ({ children, variant = 'primary', className = '', ...props }) => {
@@ -304,6 +306,10 @@ export default function App() {
 
   const formRef = useRef(null);
 
+  let ejsSid = import.meta.env.VITE_emailjs_service_id
+  let ejsTid = import.meta.env.VITE_emailjs_template_id
+  let ejsPkey = import.meta.env.VITE_emailjs_public_key
+
   useEffect(() => {
 
     function onKey(e) {
@@ -338,9 +344,7 @@ export default function App() {
 
     setStatus({ loading: true, ok: null, message: '' });
 
-    try {
-
-      // Replace {YOUR_FORM_ID} with your Formspree form id
+    /*try {
 
       const FORM_ENDPOINT = 'https://formspree.io/f/{YOUR_FORM_ID}';
 
@@ -392,7 +396,30 @@ export default function App() {
 
       console.error(err);
 
-    }
+    }*/
+
+    emailjs.sendForm(
+    ejsSid, //email service id
+    ejsTid, //email template id
+    e.target,
+    ejsPkey // public key
+    )
+    .then(() => {
+
+      setStatus({ loading: false, ok: true, 
+      message: 'Thanks — your message has been sent.' });
+
+      setFormState({ name: '', email: '', phone: '', service: '', message: '' });
+
+      if (formRef.current) formRef.current.reset();
+
+      //setTimeout(() => setStatus({ loading: false, ok: null, message: '' }), 5000);
+    })
+    .catch((err) => 
+    setStatus({ loading: false, ok: false, 
+    message: 'There was an error sending your message. Please try again later.' })
+
+);
 
   }
 
