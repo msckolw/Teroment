@@ -2,7 +2,6 @@ import React, { useState, useEffect, useRef } from 'react';
 import { FaCode, FaMobileAlt, FaServer, FaChartLine, FaBrain, FaCloud, FaCog, FaSearch, FaJava, FaArrowRight, FaRocket, FaPlay, FaUsers, FaAward, FaGlobe, FaLightbulb, FaShieldAlt, FaChevronDown, FaBars, FaTimes } from 'react-icons/fa';
 import { SiReact, SiNextdotjs, SiNodedotjs, SiTypescript, SiFlutter, SiSwift, SiKotlin, SiPython, SiTensorflow, SiPytorch, SiOpenai, SiGooglecloud, SiDocker, SiAngular, SiVuedotjs, SiEthereum, SiDatabricks } from 'react-icons/si';
 import { FaAws, FaMicrosoft } from 'react-icons/fa';
-import emailjs from '@emailjs/browser';
 
 
 // Modern button component
@@ -306,14 +305,7 @@ export default function App() {
 
   const formRef = useRef(null);
 
-  let ejsSid = import.meta.env.VITE_emailjs_service_id
-  let ejsTid = import.meta.env.VITE_emailjs_template_id
-  let ejsPkey = import.meta.env.VITE_emailjs_public_key
-
-  // Initialize EmailJS
-  useEffect(() => {
-    emailjs.init(ejsPkey);
-  }, []);
+  const web3formsKey = import.meta.env.VITE_WEB3FORMS_ACCESS_KEY || 'YOUR_ACCESS_KEY_HERE';
 
   useEffect(() => {
 
@@ -403,35 +395,38 @@ export default function App() {
 
     }*/
 
-    console.log('Form data being sent:', {
-      name: formState.name,
-      email: formState.email,
-      phone: formState.phone,
-      service: formState.service,
-      message: formState.message
-    });
+    // Using Web3Forms - Free and reliable
+    try {
+      const formData = new FormData();
+      formData.append('access_key', web3formsKey);
+      formData.append('name', formState.name);
+      formData.append('email', formState.email);
+      formData.append('phone', formState.phone);
+      formData.append('service', formState.service);
+      formData.append('message', formState.message);
+      formData.append('subject', 'New Contact Form Submission from Teroment Website');
+      formData.append('from_name', 'Teroment Website');
 
-    emailjs.sendForm(
-    ejsSid, //email service id
-    ejsTid, //email template id
-    e.target
-    )
-    .then((result) => {
-      console.log('EmailJS Success:', result.text);
-      setStatus({ loading: false, ok: true, 
-      message: 'Thanks — your message has been sent.' });
+      const response = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        body: formData
+      });
 
-      setFormState({ name: '', email: '', phone: '', service: '', message: '' });
+      const data = await response.json();
 
-      if (formRef.current) formRef.current.reset();
-
-      //setTimeout(() => setStatus({ loading: false, ok: null, message: '' }), 5000);
-    })
-    .catch((err) => {
-      console.error('EmailJS Error:', err);
+      if (data.success) {
+        setStatus({ loading: false, ok: true, 
+          message: 'Thanks — your message has been sent.' });
+        setFormState({ name: '', email: '', phone: '', service: '', message: '' });
+        if (formRef.current) formRef.current.reset();
+      } else {
+        throw new Error(data.message || 'Submission failed');
+      }
+    } catch (err) {
+      console.error('Form submission error:', err);
       setStatus({ loading: false, ok: false, 
-      message: 'There was an error sending your message. Please try again later.' });
-    });
+        message: 'There was an error sending your message. Please try again later.' });
+    }
 
   }
 
