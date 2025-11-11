@@ -310,6 +310,11 @@ export default function App() {
   let ejsTid = import.meta.env.VITE_emailjs_template_id
   let ejsPkey = import.meta.env.VITE_emailjs_public_key
 
+  // Initialize EmailJS
+  useEffect(() => {
+    emailjs.init(ejsPkey);
+  }, []);
+
   useEffect(() => {
 
     function onKey(e) {
@@ -398,14 +403,21 @@ export default function App() {
 
     }*/
 
+    console.log('Form data being sent:', {
+      name: formState.name,
+      email: formState.email,
+      phone: formState.phone,
+      service: formState.service,
+      message: formState.message
+    });
+
     emailjs.sendForm(
     ejsSid, //email service id
     ejsTid, //email template id
-    e.target,
-    ejsPkey // public key
+    e.target
     )
-    .then(() => {
-
+    .then((result) => {
+      console.log('EmailJS Success:', result.text);
       setStatus({ loading: false, ok: true, 
       message: 'Thanks — your message has been sent.' });
 
@@ -415,11 +427,11 @@ export default function App() {
 
       //setTimeout(() => setStatus({ loading: false, ok: null, message: '' }), 5000);
     })
-    .catch((err) => 
-    setStatus({ loading: false, ok: false, 
-    message: 'There was an error sending your message. Please try again later.' })
-
-);
+    .catch((err) => {
+      console.error('EmailJS Error:', err);
+      setStatus({ loading: false, ok: false, 
+      message: 'There was an error sending your message. Please try again later.' });
+    });
 
   }
 
@@ -1428,6 +1440,15 @@ export default function App() {
           color: var(--tc-text);
           font-family:inherit;
         }
+        select{
+          appearance: auto;
+          cursor: pointer;
+        }
+        select option{
+          background:${isDarkMode ? '#1e293b' : 'white'};
+          color: var(--tc-text);
+          padding: 10px;
+        }
         input:focus,textarea:focus,select:focus{
           outline:none;
           border-color:var(--accent);
@@ -1463,6 +1484,260 @@ export default function App() {
           color:var(--accent);
           font-weight:bold;
           font-size:18px;
+        }
+
+        /* Mobile Responsive Styles */
+        @media (max-width: 900px) {
+          .hero {
+            grid-template-columns: 1fr;
+            padding: 70px 24px 40px;
+            text-align: center;
+            margin-top: 100px;
+            min-height: auto;
+          }
+          
+          .hero h1 {
+            font-size: 32px;
+          }
+          
+          .hero p {
+            font-size: 16px;
+          }
+          
+          .hero-stats {
+            justify-content: center;
+          }
+          
+          .ctas {
+            justify-content: center;
+            align-items: center;
+          }
+          
+          .services {
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+          }
+          
+          .technologies-grid {
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+          }
+          
+          .testimonials {
+            grid-template-columns: 1fr;
+          }
+          
+          .two-col {
+            grid-template-columns: 1fr;
+          }
+          
+          .contact-grid {
+            grid-template-columns: 1fr;
+          }
+          
+          section {
+            padding: 32px 0;
+          }
+          
+          #about, #contact {
+            padding: 40px 24px;
+          }
+          
+          .footer-content {
+            flex-direction: column;
+          }
+          
+          .footer-links {
+            flex-direction: column;
+            gap: 24px;
+          }
+          
+          .container {
+            padding: 32px 16px;
+          }
+          
+          .logo {
+            width: 40px;
+            height: 40px;
+          }
+          
+          .brand img {
+            height: 60px !important;
+          }
+          
+          .modal {
+            padding: 24px;
+            margin: 16px;
+          }
+          
+          .service-card {
+            padding: 20px;
+          }
+          
+          .tech-box {
+            padding: 20px 16px;
+          }
+        }
+
+        @media (max-width: 600px) {
+          .services {
+            grid-template-columns: 1fr;
+            gap: 16px;
+          }
+          
+          .technologies-grid {
+            grid-template-columns: 1fr;
+            gap: 16px;
+          }
+          
+          .hero {
+            padding: 60px 16px 32px;
+            margin-top: 90px;
+          }
+          
+          .hero h1 {
+            font-size: 28px;
+            line-height: 1.2;
+          }
+          
+          .hero p {
+            font-size: 15px;
+          }
+          
+          .hero-stats {
+            flex-direction: column;
+            gap: 16px;
+            align-items: center;
+          }
+          
+          .stat-item {
+            width: 100%;
+            max-width: 200px;
+          }
+          
+          section h2 {
+            font-size: 28px;
+          }
+          
+          .container {
+            padding: 32px 16px;
+          }
+          
+          .btn {
+            width: 100%;
+            max-width: 300px;
+            padding: 12px 20px;
+            font-size: 14px;
+            justify-content: center;
+          }
+          
+          .ctas {
+            flex-direction: column;
+            width: 100%;
+            align-items: center;
+            justify-content: center;
+          }
+          
+          .brand img {
+            height: 50px !important;
+          }
+          
+          nav a {
+            font-size: 16px;
+            padding: 12px 20px;
+          }
+          
+          .fab {
+            width: 50px;
+            height: 50px;
+            font-size: 20px;
+            bottom: 20px;
+            right: 20px;
+          }
+          
+          .fab.scroll-top {
+            bottom: 80px;
+            right: 20px;
+          }
+          
+          .service-icon {
+            width: 50px;
+            height: 50px;
+            font-size: 20px;
+          }
+          
+          .tech-box .tech-icon svg {
+            width: 40px;
+            height: 40px;
+          }
+          
+          .card {
+            padding: 20px;
+          }
+          
+          input, textarea, select {
+            font-size: 16px;
+            padding: 12px 14px;
+          }
+          
+          .social-links {
+            flex-wrap: wrap;
+          }
+          
+          .social-links a {
+            flex: 1 1 calc(50% - 6px);
+            min-width: 120px;
+            text-align: center;
+          }
+          
+          .footer {
+            padding: 32px 0;
+          }
+          
+          .footer-links {
+            gap: 32px;
+          }
+          
+          .modal {
+            padding: 20px;
+            margin: 12px;
+            max-height: 85vh;
+          }
+          
+          .section-title {
+            font-size: 12px;
+          }
+        }
+
+        @media (max-width: 480px) {
+          .hero h1 {
+            font-size: 24px;
+          }
+          
+          .hero p {
+            font-size: 14px;
+          }
+          
+          section h2 {
+            font-size: 24px;
+          }
+          
+          .brand img {
+            height: 45px !important;
+          }
+          
+          .service-card h3 {
+            font-size: 18px;
+          }
+          
+          .tech-box h3 {
+            font-size: 16px;
+          }
+          
+          .btn {
+            padding: 10px 16px;
+            font-size: 13px;
+          }
         }
 
       `}</style>
@@ -1569,11 +1844,23 @@ export default function App() {
 
             <div className="ctas">
 
-              <button className="btn" onClick={() => document.querySelector('#contact')?.scrollIntoView({behavior:'smooth'})}>
+              <button className="btn" onClick={(e) => {
+                e.preventDefault();
+                const contactSection = document.getElementById('contact');
+                if (contactSection) {
+                  contactSection.scrollIntoView({behavior:'smooth', block: 'start'});
+                }
+              }}>
                 Get a Quote <FaArrowRight style={{marginLeft: '8px'}} />
               </button>
 
-              <button className="btn ghost" onClick={() => document.querySelector('#services')?.scrollIntoView({behavior:'smooth'})}>
+              <button className="btn ghost" onClick={(e) => {
+                e.preventDefault();
+                const servicesSection = document.getElementById('services');
+                if (servicesSection) {
+                  servicesSection.scrollIntoView({behavior:'smooth', block: 'start'});
+                }
+              }}>
                 <FaPlay style={{marginRight: '8px'}} /> View Services
               </button>
 
@@ -1598,30 +1885,39 @@ export default function App() {
 
           <aside>
 
-            <div className="card">
+            <div className="card" style={{padding: '0', overflow: 'hidden'}}>
 
-              <h3 style={{
-                margin: '0 0 20px 0',
-                color: 'var(--tc-text)',
-                fontSize: '24px',
-                fontWeight: '800',
-                lineHeight: '1.3',
-                letterSpacing: '-0.02em'
-              }}>Request a free consultation</h3>
+              <div style={{padding: '24px 24px 16px 24px'}}>
+                <h3 style={{
+                  margin: '0',
+                  color: 'var(--tc-text)',
+                  fontSize: '24px',
+                  fontWeight: '800',
+                  lineHeight: '1.3',
+                  letterSpacing: '-0.02em'
+                }}>Teroment Solutions Intro</h3>
+              </div>
 
-              <p style={{
-                color: 'var(--tc-muted)',
-                fontSize: '16px',
-                lineHeight: '1.7',
-                margin: '0 0 24px 0'
-              }}>Tell us about your project and we'll schedule a 20-minute call to discuss scope and pricing.</p>
-
-              <div style={{display:'flex', gap:'12px', marginTop:'16px', flexWrap:'wrap'}}>
-
-                <button className="btn" onClick={() => document.querySelector('#contact')?.scrollIntoView({behavior:'smooth'})}>Request call</button>
-
-                <a className="btn ghost" href="mailto:info@terocent.com">Email us</a>
-
+              <div style={{
+                position: 'relative',
+                paddingBottom: '56.25%',
+                height: 0,
+                overflow: 'hidden'
+              }}>
+                <iframe
+                  style={{
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    width: '100%',
+                    height: '100%',
+                    border: 0
+                  }}
+                  src="https://www.youtube.com/embed/iIoqVnlrbvE"
+                  title="Teroment Solutions Intro"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                />
               </div>
 
             </div>
@@ -1850,15 +2146,15 @@ export default function App() {
 
               <label htmlFor="name">Full name *</label>
 
-              <input id="name" name="name" type="text" required value={formState.name} onChange={e => setFormState({...formState,name:e.target.value})} placeholder="John Doe" />
+              <input id="name" name="from_name" type="text" required value={formState.name} onChange={e => setFormState({...formState,name:e.target.value})} placeholder="John Doe" />
 
               <label htmlFor="email">Email *</label>
 
-              <input id="email" name="email" type="email" required value={formState.email} onChange={e => setFormState({...formState,email:e.target.value})} placeholder="john@example.com" />
+              <input id="email" name="from_email" type="email" required value={formState.email} onChange={e => setFormState({...formState,email:e.target.value})} placeholder="john@example.com" />
 
               <label htmlFor="phone">Phone</label>
 
-              <input id="phone" name="phone" type="tel" value={formState.phone} onChange={e => setFormState({...formState,phone:e.target.value})} placeholder="+91 9876543210" />
+              <input id="phone" name="from_phone" type="tel" value={formState.phone} onChange={e => setFormState({...formState,phone:e.target.value})} placeholder="+91 9876543210" />
 
               <label htmlFor="service">Service interested in</label>
 
@@ -1867,6 +2163,8 @@ export default function App() {
                 <option value="">Choose a service</option>
 
                 {services.map(s=> <option key={s.id} value={s.title}>{s.title}</option>)}
+
+                <option value="Others">Others</option>
 
               </select>
 
@@ -2036,7 +2334,14 @@ export default function App() {
 
               <div style={{marginTop:12}}>
 
-                <button className="btn" onClick={() => { document.querySelector('#contact')?.scrollIntoView({behavior:'smooth'}); setShowServiceModal(null); }}>Request this service</button>
+                <button className="btn" onClick={(e) => { 
+                  e.preventDefault();
+                  const contactSection = document.getElementById('contact');
+                  if (contactSection) {
+                    contactSection.scrollIntoView({behavior:'smooth', block: 'start'});
+                  }
+                  setShowServiceModal(null); 
+                }}>Request this service</button>
 
               </div>
 
@@ -2049,7 +2354,13 @@ export default function App() {
         {/* Floating Action Buttons */}
         <button 
           className="fab"
-          onClick={() => document.querySelector('#contact')?.scrollIntoView({behavior:'smooth'})}
+          onClick={(e) => {
+            e.preventDefault();
+            const contactSection = document.getElementById('contact');
+            if (contactSection) {
+              contactSection.scrollIntoView({behavior:'smooth', block: 'start'});
+            }
+          }}
           title="Get in touch"
         >
           <FaRocket />
