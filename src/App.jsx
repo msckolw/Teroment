@@ -833,6 +833,30 @@ export default function App() {
           z-index: 2;
         }
 
+        .hero aside {
+          position: relative;
+          z-index: 3;
+        }
+
+        .video-card {
+          touch-action: auto !important;
+          -webkit-touch-callout: default !important;
+        }
+
+        .video-card:hover {
+          transform: none !important;
+        }
+
+        .video-container {
+          isolation: isolate;
+          -webkit-tap-highlight-color: transparent;
+        }
+
+        .video-container iframe {
+          touch-action: auto !important;
+          pointer-events: auto !important;
+        }
+
         .hero-stats {
           display: flex;
           gap: 32px;
@@ -1880,7 +1904,7 @@ export default function App() {
 
           <aside>
 
-            <div className="card" style={{padding: '0', overflow: 'hidden'}}>
+            <div className="card video-card" style={{padding: '0', overflow: 'visible', position: 'relative', zIndex: 10}}>
 
               <div style={{padding: '24px 24px 16px 24px'}}>
                 <h3 style={{
@@ -1893,11 +1917,17 @@ export default function App() {
                 }}>Teroment Solutions Intro</h3>
               </div>
 
-              <div style={{
+              <div className="video-container" style={{
                 position: 'relative',
                 paddingBottom: '56.25%',
                 height: 0,
-                overflow: 'hidden'
+                overflow: 'hidden',
+                cursor: 'pointer',
+                zIndex: 10,
+                touchAction: 'auto',
+                WebkitTouchCallout: 'default',
+                WebkitUserSelect: 'auto',
+                userSelect: 'auto'
               }}>
                 <iframe
                   style={{
@@ -1906,12 +1936,18 @@ export default function App() {
                     left: 0,
                     width: '100%',
                     height: '100%',
-                    border: 0
+                    border: 0,
+                    cursor: 'pointer',
+                    zIndex: 10,
+                    touchAction: 'auto'
                   }}
-                  src="https://www.youtube.com/embed/iIoqVnlrbvE"
+                  src="https://www.youtube.com/embed/iIoqVnlrbvE?playsinline=1&enablejsapi=1&rel=0&modestbranding=1"
                   title="Teroment Solutions Intro"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen"
                   allowFullScreen
+                  loading="lazy"
+                  frameBorder="0"
+                  sandbox="allow-scripts allow-same-origin allow-presentation"
                 />
               </div>
 
