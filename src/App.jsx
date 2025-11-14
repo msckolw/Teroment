@@ -2247,11 +2247,11 @@ export default function App() {
 
                   <div className="social-links">
 
-                    <a href="#" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+                    <a href="https://www.linkedin.com/company/teroment-solutions/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
 
-                    <a href="#" target="_blank" rel="noopener noreferrer">Twitter</a>
+                    <a href="https://x.com/teroment" target="_blank" rel="noopener noreferrer">Twitter</a>
 
-                    <a href="#" target="_blank" rel="noopener noreferrer">Instagram</a>
+                    <a href="https://www.instagram.com/teroment_solutions/" target="_blank" rel="noopener noreferrer">Instagram</a>
 
                   </div>
 
