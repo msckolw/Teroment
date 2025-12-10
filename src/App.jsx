@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { FaCode, FaMobileAlt, FaServer, FaChartLine, FaBrain, FaCloud, FaCog, FaSearch, FaJava, FaArrowRight, FaRocket, FaPlay, FaUsers, FaAward, FaGlobe, FaLightbulb, FaShieldAlt, FaChevronDown, FaBars, FaTimes } from 'react-icons/fa';
+import { FaCode, FaMobileAlt, FaServer, FaChartLine, FaBrain, FaCloud, FaCog, FaSearch, FaJava, FaArrowRight, FaRocket, FaPlay, FaUsers, FaAward, FaGlobe, FaLightbulb, FaShieldAlt, FaChevronDown, FaBars, FaTimes, FaHome } from 'react-icons/fa';
 import { SiReact, SiNextdotjs, SiNodedotjs, SiTypescript, SiFlutter, SiSwift, SiKotlin, SiPython, SiTensorflow, SiPytorch, SiOpenai, SiGooglecloud, SiDocker, SiAngular, SiVuedotjs, SiEthereum, SiDatabricks } from 'react-icons/si';
 import { FaAws, FaMicrosoft } from 'react-icons/fa';
 
@@ -47,14 +47,14 @@ const Card = ({ icon: Icon, title, description, className = '' }) => (
   </div>
 );
 
-export default function App() {
+export default function App({ isDarkMode, setIsDarkMode }) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [showScrollTop, setShowScrollTop] = useState(false);
-  const [isDarkMode, setIsDarkMode] = useState(false);
+
   const headerRef = useRef(null);
 
   // Handle scroll effect for header and active section
@@ -91,11 +91,7 @@ export default function App() {
     return () => window.removeEventListener('mousemove', handleMouseMove);
   }, []);
 
-  // Loading effect
-  useEffect(() => {
-    const timer = setTimeout(() => setIsLoading(false), 1500);
-    return () => clearTimeout(timer);
-  }, []);
+
 
   // Particle system
   useEffect(() => {
@@ -307,6 +303,8 @@ export default function App() {
 
   const web3formsKey = import.meta.env.VITE_WEB3FORMS_ACCESS_KEY || 'YOUR_ACCESS_KEY_HERE';
 
+
+
   useEffect(() => {
 
     function onKey(e) {
@@ -430,29 +428,7 @@ export default function App() {
 
   }
 
-  // Loading screen component
-  if (isLoading) {
-    return (
-      <div className="loading-screen">
-        <div className="loading-content">
-          <div className="loading-logo">
-            <div className="logo-animation">
-              <img src="/asset/Android Compact - 1 (3).svg" alt="Teroment Solutions" />
-            </div>
-          </div>
-          <div className="loading-text" style={{
-            fontWeight: 700,
-            fontSize: '26px',
-            letterSpacing: '-0.5px',
-            fontFamily: "'Inter', sans-serif"
-          }}>Teroment Solutions</div>
-          <div className="loading-bar">
-            <div className="loading-progress"></div>
-          </div>
-        </div>
-      </div>
-    );
-  }
+
 
   return (
 
@@ -2333,9 +2309,9 @@ export default function App() {
 
               <div style={{display:'flex', gap:'20px'}}>
 
-                <a href="#" className="muted" style={{textDecoration:'none', fontSize:'14px', transition:'color 0.3s'}} onMouseEnter={e => e.target.style.color='white'} onMouseLeave={e => e.target.style.color='rgba(255,255,255,0.7)'}>Privacy Policy</a>
+                <a href="/privacy-policy" className="muted" style={{textDecoration:'none', fontSize:'14px', transition:'color 0.3s'}} onMouseEnter={e => e.target.style.color='white'} onMouseLeave={e => e.target.style.color='rgba(255,255,255,0.7)'}>Privacy Policy</a>
 
-                <a href="#" className="muted" style={{textDecoration:'none', fontSize:'14px', transition:'color 0.3s'}} onMouseEnter={e => e.target.style.color='white'} onMouseLeave={e => e.target.style.color='rgba(255,255,255,0.7)'}>Terms of Service</a>
+                <a href="/terms-conditions" className="muted" style={{textDecoration:'none', fontSize:'14px', transition:'color 0.3s'}} onMouseEnter={e => e.target.style.color='white'} onMouseLeave={e => e.target.style.color='rgba(255,255,255,0.7)'}>Terms and Conditions</a>
 
               </div>
 
