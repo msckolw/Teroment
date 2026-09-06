@@ -2118,7 +2118,7 @@ export default function App({ isDarkMode, setIsDarkMode }) {
                 <div style={{marginTop:'20px'}}>
                   <div style={{marginBottom:'20px'}}>
                     <strong style={{display:'block', marginBottom:'8px', color:'var(--text)'}}>📍 Address</strong>
-                    <div style={{lineHeight:'1.6', color: 'var(--tc-muted)', fontSize: '15px'}}>3rd floor, Rajib Gandhi Infotech Park, Hinjewadi Phase 1, Pune, Maharashtra, India, PIN: 411057</div>
+                    <div style={{lineHeight:'1.6', color: 'var(--tc-muted)', fontSize: '15px'}}>2nd Floor, 75-76, West Guru Angad Nagar, Delhi, Near Nirman Vihar Metro, Pin: 110092</div>
                   </div>
 
                   <div style={{marginBottom:'20px'}}>
@@ -2209,7 +2209,7 @@ export default function App({ isDarkMode, setIsDarkMode }) {
 
                 <div style={{marginBottom:'28px'}}>
                   <strong style={{display:'block', marginBottom:'8px', color:'var(--text)'}}>Address</strong>
-                  <div className="muted" style={{lineHeight:'1.7'}}>3rd floor, Rajib Gandhi Infotech Park, Hinjewadi Phase 1, Pune, Maharashtra, India, PIN: 411057</div>
+                  <div className="muted" style={{lineHeight:'1.7'}}>2nd Floor, 75-76, West Guru Angad Nagar, Delhi, Near Nirman Vihar Metro, Pin: 110092</div>
                 </div>
 
                 <div style={{marginBottom:'28px'}}>

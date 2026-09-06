@@ -106,7 +106,7 @@ const TermsConditions = ({ isDarkMode, setIsDarkMode }) => {
           <div style={{background: isDarkMode ? 'rgba(124,58,237,0.1)' : 'rgba(124,58,237,0.05)', padding: '20px', borderRadius: '8px', marginTop: '16px', color: isDarkMode ? '#e2e8f0' : '#1f2937'}}>
             <p><strong>Email:</strong> info@teroment.com</p>
             <p><strong>Phone:</strong> +91 7001414991</p>
-            <p><strong>Address:</strong> 3rd floor, Rajib Gandhi Infotech Park, Hinjewadi Phase 1, Pune, Maharashtra, India, PIN: 411057</p>
+            <p><strong>Address:</strong> 2nd Floor, 75-76, West Guru Angad Nagar, Delhi, Near Nirman Vihar Metro, Pin: 110092</p>
           </div>
         </div>
       </div>
